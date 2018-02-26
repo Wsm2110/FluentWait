@@ -1,0 +1,9 @@
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\bin\Debug\netstandard2.0\FluentWait.deps.json
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\bin\Debug\netstandard2.0\FluentWait.dll
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\bin\Debug\netstandard2.0\FluentWait.pdb
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\obj\Debug\netstandard2.0\FluentWait.csprojResolveAssemblyReference.cache
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\obj\Debug\netstandard2.0\FluentWait.csproj.CoreCompileInputs.cache
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\obj\Debug\netstandard2.0\FluentWait.AssemblyInfoInputs.cache
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\obj\Debug\netstandard2.0\FluentWait.AssemblyInfo.cs
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\obj\Debug\netstandard2.0\FluentWait.dll
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\obj\Debug\netstandard2.0\FluentWait.pdb
