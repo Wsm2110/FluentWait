@@ -21,9 +21,10 @@ namespace FluentWait
 
         public IResult<bool> IsAny<T>(Func<IEnumerable<T>> execute)
         {
-            if (execute().Any())
+            var result = _waitHandler.Until(() => execute().Any());
+            if (result)
             {
-                return new Result<bool> { Value = true };
+                return new Result<bool>(_waitHandler) { Value = true };
             }
 
             throw new Exception("Throw something exception...");
@@ -33,7 +34,7 @@ namespace FluentWait
         {
             if (execute() != null)
             {
-                return new Result<TResult> { Value = execute() };
+                return new Result<TResult>(_waitHandler) { Value = execute() };
             }
 
             throw new Exception("Throw something exception...");

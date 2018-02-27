@@ -15,7 +15,7 @@ namespace FluentWait.Tests.UnitTesting
         [TestMethod]
         public void TestMethod2()
         {
-            IWaitHandler waitHandler = new WaitHandler().SetDefaultPollingInterval(TimeSpan.FromSeconds(1)).SetDefaultTimeout(TimeSpan.FromSeconds(60));
+            IWaitHandler waitHandler = new WaitHandler().SetPollingInterval(TimeSpan.FromSeconds(1)).SetTimeout(TimeSpan.FromSeconds(60));
             IWaitBuilder builder = new WaitBuilder(waitHandler);
 
             var result = builder.IsAny(() => _testCollection)
@@ -30,9 +30,10 @@ namespace FluentWait.Tests.UnitTesting
         [ExpectedException(typeof(Exception))]
         public void AssertCollectionIsNotNullAndIsAnyIsFalse()
         {
-            IWaitHandler waitHandler = new WaitHandler().SetDefaultPollingInterval(TimeSpan.FromSeconds(1)).SetDefaultTimeout(TimeSpan.FromSeconds(60));
+            //TODO create global
+            IWaitHandler waitHandler = new WaitHandler().SetPollingInterval(TimeSpan.FromSeconds(1)).SetTimeout(TimeSpan.FromSeconds(60));
             IWaitBuilder builder = new WaitBuilder(waitHandler);
-            
+                         
             var testClass = new TestClassViewModel();
 
             testClass._testCollection.Add(true);
@@ -40,6 +41,8 @@ namespace FluentWait.Tests.UnitTesting
             var result = builder.IsNotNull(() => testClass)
                                 .IsAny(vm => vm._testCollection, vm => vm.Count)
                                 .IsEqual(res => res == 1); 
+
+            //TODO INject AOL Style which resets timeout and polling to default if changed
 
             Assert.IsNotNull(result.Value);
         }

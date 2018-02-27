@@ -7,3 +7,4 @@ C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\obj\
 C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\obj\Debug\netstandard2.0\FluentWait.AssemblyInfo.cs
 C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\obj\Debug\netstandard2.0\FluentWait.dll
 C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\obj\Debug\netstandard2.0\FluentWait.pdb
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait\bin\Debug\netstandard2.0\WindowsBase.dll

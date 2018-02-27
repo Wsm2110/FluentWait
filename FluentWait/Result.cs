@@ -8,17 +8,23 @@ namespace FluentWait
     public class Result<T> : IResult<T>
     {
         public T Value { get; set; }
+        public IWaitHandler Wait { get; }
+
+        public Result(IWaitHandler wait)
+        {
+            Wait = wait;
+        }
 
         #region IsAny
 
         public IResult<bool> IsAny(Func<T, bool> execute)
         {
-            return new Result<bool> { Value = execute(Value) };
+            return new Result<bool>(Wait) { Value = execute(Value) };
         }
 
         public IResult<TResult> IsAny<TResult>(Func<T, TResult> execute) where TResult : ICollection
         {
-            return new Result<TResult> { Value = execute(Value) };
+            return new Result<TResult>(Wait) { Value = execute(Value) };
         }
 
         public IResult<TResult> IsAny<TResult, TResult1>(Func<T, TResult1> execute, Func<T, TResult> returnValue)
@@ -38,7 +44,7 @@ namespace FluentWait
                 throw new InvalidCastException($"Collection is empty");
             }
 
-            return new Result<TResult> { Value = returnValue(Value) };
+            return new Result<TResult>(Wait) { Value = returnValue(Value) };
         }
 
         #endregion
@@ -54,7 +60,7 @@ namespace FluentWait
                 throw new ImLazyException($"Is not equal");
             }
 
-            return new Result<bool> { Value = result };
+            return new Result<bool>(Wait) { Value = result };
         }
 
         public IResult<TResult> IsEqual<TResult, TResult1>(Func<T, TResult1> execute, Func<T, TResult> returnValue)
@@ -77,6 +83,18 @@ namespace FluentWait
         }
 
         #endregion
-      
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="Result{T}"/> to <see cref="T"/>.
+        /// </summary>
+        /// <param name="result">The result.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        public static implicit operator T(Result<T> result)
+        {
+            return result.Value;
+        }
+
     }
 }

@@ -6,11 +6,24 @@ namespace FluentWait.Contracts
 {
     public interface IWaitHandler
     {
-        void Until<TResult>(Func<ExpectedConditions, TResult> execute);
+        /// <summary>
+        /// Froms the specified seconds.
+        /// </summary>
+        /// <param name="seconds">The seconds.</param>
+        void From(TimeSpan seconds);
 
-        IWaitHandler SetDefaultTimeout(TimeSpan duration);
+        IWaitHandler SetTimeout(TimeSpan timeoutInSeconds);
 
-        IWaitHandler SetDefaultPollingInterval(TimeSpan duration);
+        IWaitHandler SetPollingInterval(TimeSpan timeoutInSeconds);
+
+        /// <summary>
+        /// Untils the specified condition.
+        /// </summary>
+        /// <typeparam name="TResult">The type of the result.</typeparam>
+        /// <param name="condition">The condition.</param>
+        /// <param name="errorMessage">The error message.</param>
+        /// <returns></returns>
+        Result<TResult> Until<TResult>(Func<TResult> condition);
 
     }
 }
