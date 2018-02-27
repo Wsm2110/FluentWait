@@ -16,8 +16,6 @@ namespace FluentWait
         private readonly IClock _clock;
         private TimeSpan _timeout;
         private TimeSpan _pollingInterval;
-        private TimeSpan _defaultTimeout;
-        private TimeSpan _defaultPollingInterval;
 
         #endregion
 

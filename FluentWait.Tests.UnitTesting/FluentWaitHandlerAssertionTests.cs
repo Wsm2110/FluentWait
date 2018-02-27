@@ -18,17 +18,15 @@ namespace FluentWait.Tests.UnitTesting
             IWaitHandler waitHandler = new WaitHandler().SetPollingInterval(TimeSpan.FromSeconds(1)).SetTimeout(TimeSpan.FromSeconds(60));
             IWaitBuilder builder = new WaitBuilder(waitHandler);
 
-            var result = builder.IsAny(() => _testCollection)
-                                .IsAny(exp => false)
-                                .IsAny(exp => exp == false, exp => 1)
-                                .IsAny(exp => exp == 1);
-
+            var result = builder.IsAny(() => _testCollection);                     
+                             
+                             
             Assert.IsTrue(result.Value);
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
-        public void AssertCollectionIsNotNullAndIsAnyIsFalse()
+        public void AssertCollectionIsNotNullAndIsAnyIsTrue()
         {
             //TODO create global
             IWaitHandler waitHandler = new WaitHandler().SetPollingInterval(TimeSpan.FromSeconds(1)).SetTimeout(TimeSpan.FromSeconds(60));
