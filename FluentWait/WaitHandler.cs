@@ -1,4 +1,5 @@
-﻿using FluentWait.Contracts;
+﻿using FluentWait.Aspects;
+using FluentWait.Contracts;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,7 +50,7 @@ namespace FluentWait
         /// <param name="errorMessage">The error message.</param>
         /// <returns>
         /// Instance of a type or a boolean
-        /// </returns>
+        /// </returns>   
         public Result<TResult> Until<TResult>(Func<TResult> action)
         {
             var waitResult = new Result<TResult>(this);
@@ -100,6 +101,7 @@ namespace FluentWait
         /// </summary>
         public IWaitHandler SetPollingInterval(TimeSpan duration)
         {
+            _pollingInterval = duration;
             return this;
         }
 
@@ -108,6 +110,7 @@ namespace FluentWait
         /// </summary>
         public IWaitHandler SetTimeout(TimeSpan duration)
         {
+            _timeout = duration;
             return this;
         }
 

@@ -91,7 +91,7 @@ namespace FluentWait
 
             if (result == false)
             {
-                throw new ImLazyException($"Is not equal");
+                throw new TestFailedException($"Is not equal");
             }
 
             return new Result<bool>(_wait) { Value = result };

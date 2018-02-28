@@ -11,7 +11,9 @@ namespace FluentWait.Tests.UnitTesting
     public class FluentWaitHandlerAssertionTests
     {
         ObservableCollection<Result<bool>> _testCollection = new ObservableCollection<Result<bool>>();
-             
+
+       public IWaitHandler waitHandler = new WaitHandler().SetPollingInterval(TimeSpan.FromSeconds(1)).SetTimeout(TimeSpan.FromSeconds(60));
+
         [TestMethod]
         public void TestMethod2()
         {
@@ -25,11 +27,11 @@ namespace FluentWait.Tests.UnitTesting
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [Aspects.WaitHandlerAspect(360,10)]
         public void AssertCollectionIsNotNullAndIsAnyIsTrue()
         {
             //TODO create global
-            IWaitHandler waitHandler = new WaitHandler().SetPollingInterval(TimeSpan.FromSeconds(1)).SetTimeout(TimeSpan.FromSeconds(60));
+         
             IWaitBuilder builder = new WaitBuilder(waitHandler);
                          
             var testClass = new TestClassViewModel();

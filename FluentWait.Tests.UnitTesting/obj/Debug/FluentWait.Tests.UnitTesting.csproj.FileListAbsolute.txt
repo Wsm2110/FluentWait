@@ -109,3 +109,13 @@ C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Test
 C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\obj\Debug\FluentWait.Tests.UnitTesting.csproj.CoreCompileInputs.cache
 C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\obj\Debug\FluentWait.Tests.UnitTesting.dll
 C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\obj\Debug\FluentWait.Tests.UnitTesting.pdb
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\bin\Debug\Mono.Cecil.dll
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\bin\Debug\Mono.Cecil.Pdb.dll
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\bin\Debug\Mono.Cecil.Rocks.dll
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\bin\Debug\MethodBoundaryAspect.pdb
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\bin\Debug\Mono.Cecil.pdb
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\bin\Debug\Mono.Cecil.Mdb.pdb
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\bin\Debug\Mono.Cecil.Pdb.pdb
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\bin\Debug\Mono.Cecil.Rocks.pdb
+C:\Users\Wiljan\Documents\Visual Studio 2017\Projects\FluentWait\FluentWait.Tests.UnitTesting\bin\Debug\MethodBoundaryAspect.dll
