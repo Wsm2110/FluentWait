@@ -113,33 +113,5 @@ namespace FluentWait
             _timeout = duration;
             return this;
         }
-
-        #region PrivateMethods
-
-        /// <summary>
-        /// Throws the exception on failed.
-        /// </summary>
-        /// <typeparam name="TResult">The type of the result.</typeparam>
-        /// <param name="result">The result.</param>
-        /// <param name="message">The message.</param>
-        /// <exception cref="TestFailedException">
-        /// </exception>
-        private void ThrowExceptionOnFailed<TResult>(Result<TResult> result, string message)
-        {
-            if (result.Value == null)
-            {
-                throw new TestFailedException($"Waitfor condition returned null .... \n {message}");
-            }
-
-            var boolResult = result.Value as bool?;
-            if (boolResult != null && !boolResult.Value)
-            {
-                throw new TestFailedException(message);
-            }
-        }
-
-        #endregion
-
-
     }
 }

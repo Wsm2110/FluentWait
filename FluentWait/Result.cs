@@ -14,20 +14,10 @@ namespace FluentWait
         public T Value { get; set; }
 
         private IWaitHandler _wait { get; }
-
+ 
         public Result(IWaitHandler wait)
         {
             _wait = wait;
-        }
-
-        /// <summary>
-        /// Determines whether the specified execute is any.
-        /// </summary>
-        /// <param name="execute">The execute.</param>
-        /// <returns></returns>
-        public IResult<bool> IsAny(Func<T, bool> execute)
-        {
-            return new Result<bool>(_wait) { Value = execute(Value) };
         }
 
         /// <summary>
@@ -38,9 +28,11 @@ namespace FluentWait
         /// <returns></returns>
         public IResult<TResult> IsAny<TResult>(Func<T, TResult> execute) where TResult : ICollection
         {
+            var condition = default(TResult);
+
             var result = _wait.Until(() =>
              {
-                 var condition = execute(Value);
+                 condition = execute(Value);
                  var cast = condition as ICollection;
                  if (cast == null)
                  {
@@ -52,7 +44,7 @@ namespace FluentWait
             if (!result)
                 throw new TestFailedException("Collection is Empty, expected otherwise");
 
-            return new Result<TResult>(_wait) { Value = execute(Value) };
+            return new Result<TResult>(_wait) { Value = condition };
         }
 
         /// <summary>
@@ -74,7 +66,7 @@ namespace FluentWait
                      throw new InvalidCastException($"Unable to cast result to {nameof(ICollection)}");
                  }
                  return cast.Count > 0;
-             }).ThrowOnFailed("Collection is Empty, expected otherwise");
+             }).ThrowExceptionOnFailed("Collection is Empty, expected otherwise");
 
             return new Result<TResult>(_wait) { Value = returnValue(Value) };
         }
@@ -87,11 +79,11 @@ namespace FluentWait
         /// <exception cref="ImLazyException"></exception>
         public IResult<bool> IsEqual(Func<T, bool> execute)
         {
-            var result = execute(Value);
+            var result = _wait.Until(() => execute(Value));
 
-            if (result == false)
+            if (!result)
             {
-                throw new TestFailedException($"Is not equal");
+                throw new TestFailedException("Return value of this condition returned unexpected result");
             }
 
             return new Result<bool>(_wait) { Value = result };
@@ -104,11 +96,13 @@ namespace FluentWait
         /// <typeparam name="TResult1">The type of the result1.</typeparam>
         /// <param name="execute">The execute.</param>
         /// <param name="returnValue">The return value.</param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public IResult<TResult> IsEqual<TResult, TResult1>(Func<T, TResult1> execute, Func<T, TResult> returnValue)
+        /// <returns></returns>  
+        public IResult<TResult> IsEqual<TResult, TResult1>(Func<T, bool> execute, Func<T, TResult> returnValue)
         {
-            throw new NotImplementedException();
+            _wait.Until(() => execute(Value))
+                 .ThrowExceptionOnFailed("Return value of this condition returned unexpected result");
+
+            return new Result<TResult>(_wait) { Value = returnValue(Value) };
         }
 
         /// <summary>
@@ -117,8 +111,8 @@ namespace FluentWait
         /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="execute">The execute.</param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public IResult<TResult> IsNotNull<TResult>(Func<T, TResult> execute)
+ 
+        public IResult<TResult> IsNotNull<TResult>(Func<T, TResult> execute) where TResult : class
         {
             var result = _wait.Until(() => execute(Value));
 
@@ -138,34 +132,58 @@ namespace FluentWait
         /// <param name="execute">The execute.</param>
         /// <param name="returnValue">The return value.</param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public IResult<TResult> IsNotNull<TResult, TResult1>(Func<T, TResult1> execute, Func<T, TResult> returnValue)
+        public IResult<TResult> IsNotNull<TResult, TResult1>(Func<T, TResult1> execute, Func<T, TResult> returnValue) where TResult : class
         {
-            throw new NotImplementedException();
+            var result = _wait.Until(() => execute(Value));
+
+            if (result == null)
+            {
+                throw new TestFailedException("Execution the given condition returned null");
+            }
+
+            return new Result<TResult>(_wait) { Value = returnValue(Value) };
         }
 
         /// <summary>
-        /// Throws the on failed.
+        /// Throws the exception on failed.
         /// </summary>
-        /// <typeparam name="TResult">The type of the result.</typeparam>
         /// <param name="condition">The condition.</param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void ThrowOnFailed(Func<T, string> condition)
+        /// <exception cref="TestFailedException">
+        /// </exception>
+        public void ThrowExceptionOnFailed(Func<T, string> condition)
         {
-          
+            if (Value == null)
+            {
+                throw new TestFailedException($"Condition returned null");
+            }
+
+            var boolResult = Value as bool?;
+            if (boolResult != null && !boolResult.Value)
+            {
+                throw new TestFailedException(condition(Value));
+            }
         }
 
         /// <summary>
-        /// Throws the on failed.
+        /// Throws the exception on failed.
         /// </summary>
-        /// <typeparam name="TResult">The type of the result.</typeparam>
-        /// <param name="condition">The condition.</param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void ThrowOnFailed(string condition)
+        /// <param name="error">The error.</param>
+        /// <exception cref="TestFailedException">
+        /// </exception>
+        public void ThrowExceptionOnFailed(string error)
         {
-            
-        }
+            if (Value == null)
+            {
+                throw new TestFailedException($"Condition returned null");
+            }
 
+            var boolResult = Value as bool?;
+            if (boolResult != null && !boolResult.Value)
+            {
+                throw new TestFailedException(error);
+            }
+        }
+        
         /// <summary>
         /// Performs an implicit conversion from <see cref="Result{T}"/> to <see cref="T"/>.
         /// </summary>

@@ -45,7 +45,7 @@ namespace FluentWait
                 return new Result<bool>(_waitHandler) { Value = true };
             }
 
-            throw new Exception("Throw something exception...");
+            throw new TestFailedException("Throw something exception...");
         }
 
         /// <summary>
@@ -55,25 +55,32 @@ namespace FluentWait
         /// <param name="execute">The execute.</param>
         /// <returns></returns>
         /// <exception cref="Exception">Throw something exception...</exception>
-        public IResult<TResult> IsNotNull<TResult>(Func<TResult> execute)
+        public IResult<TResult> IsNotNull<TResult>(Func<TResult> execute) where TResult : class
         {
-            if (execute() != null)
+            var result = _waitHandler.Until(() => execute());
+            if (result != null)
             {
-                return new Result<TResult>(_waitHandler) { Value = execute() };
+                return new Result<TResult>(_waitHandler) { Value = result };
             }
 
-            throw new Exception("Throw something exception...");
+            throw new TestFailedException("Value is null");
         }
 
         /// <summary>
         /// Determines whether the specified execute is true.
         /// </summary>
         /// <param name="execute">The execute.</param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
+        /// <returns></returns>   
         public IResult<bool> IsTrue(Func<bool> execute)
         {
-            throw new NotImplementedException();
+            var result = _waitHandler.Until(() => execute());
+
+            if (result != null)
+            {
+                return new Result<bool>(_waitHandler) { Value = result };
+            }
+
+            throw new TestFailedException("Value is false");
         }
     }
 }
