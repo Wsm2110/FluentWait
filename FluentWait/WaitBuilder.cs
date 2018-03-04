@@ -45,7 +45,7 @@ namespace FluentWait
                 return new Result<bool>(_waitHandler) { Value = true };
             }
 
-            throw new TestFailedException("Throw something exception...");
+            throw new TestFailedException("Return value of this condition returned unexpected result");
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace FluentWait
                 return new Result<TResult>(_waitHandler) { Value = result };
             }
 
-            throw new TestFailedException("Value is null");
+            throw new TestFailedException("Return value of this condition returned unexpected result");
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace FluentWait
                 return new Result<bool>(_waitHandler) { Value = result };
             }
 
-            throw new TestFailedException("Value is false");
+            throw new TestFailedException("Return value of this condition returned unexpected result");
         }
     }
 }

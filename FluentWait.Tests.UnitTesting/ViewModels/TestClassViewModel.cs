@@ -9,7 +9,7 @@ namespace FluentWait.Tests.UnitTesting.ViewModels
 {
     public class TestClassViewModel
     {
-        public ObservableCollection<bool> _testCollection = new ObservableCollection<bool>();
+        public ObservableCollection<bool> TestCollection = new ObservableCollection<bool>();
 
         public List<int> something = new List<int>();
 

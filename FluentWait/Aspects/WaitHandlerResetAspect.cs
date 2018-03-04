@@ -6,12 +6,12 @@ using System.Text;
 
 namespace FluentWait.Aspects
 {
-    public class WaitHandlerAspect : OnMethodBoundaryAspect
+    public class WaitHandlerResetAspect : OnMethodBoundaryAspect
     {
         public int TimeoutInSeconds { get; }
         public int PollingDurationInSeconds { get; }
 
-        public WaitHandlerAspect(int timeoutInSeconds, int pollingDurationInSeconds)
+        public WaitHandlerResetAspect(int timeoutInSeconds, int pollingDurationInSeconds)
         {
             TimeoutInSeconds = timeoutInSeconds;
             PollingDurationInSeconds = pollingDurationInSeconds;

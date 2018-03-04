@@ -1,5 +1,4 @@
-﻿using FluentWait.Aspects;
-using FluentWait.Contracts;
+﻿using FluentWait.Contracts;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace FluentWait
 {
     [Serializable]
-    internal class TestFailedException : Exception
+    public class TestFailedException : Exception
     {
         public TestFailedException()
         {

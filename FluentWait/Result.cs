@@ -118,7 +118,7 @@ namespace FluentWait
 
             if (result == null)
             {
-                throw new TestFailedException("Execution the given condition returned  a null");
+                throw new TestFailedException("Return value of this condition returned unexpected result");
             }
 
             return new Result<TResult>(_wait) { Value = result };
@@ -138,7 +138,7 @@ namespace FluentWait
 
             if (result == null)
             {
-                throw new TestFailedException("Execution the given condition returned null");
+                throw new TestFailedException("Return value of this condition returned unexpected result");
             }
 
             return new Result<TResult>(_wait) { Value = returnValue(Value) };
@@ -154,7 +154,7 @@ namespace FluentWait
         {
             if (Value == null)
             {
-                throw new TestFailedException($"Condition returned null");
+                throw new TestFailedException("Return value of this condition returned unexpected result");
             }
 
             var boolResult = Value as bool?;
@@ -174,7 +174,7 @@ namespace FluentWait
         {
             if (Value == null)
             {
-                throw new TestFailedException($"Condition returned null");
+                throw new TestFailedException("Return value of this condition returned unexpected result");
             }
 
             var boolResult = Value as bool?;
