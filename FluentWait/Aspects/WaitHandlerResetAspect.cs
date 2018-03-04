@@ -1,21 +1,27 @@
 ﻿using FluentWait.Contracts;
 using MethodBoundaryAspect.Fody.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FluentWait.Aspects
 {
     public class WaitHandlerResetAspect : OnMethodBoundaryAspect
     {
-        public int TimeoutInSeconds { get; }
-        public int PollingDurationInSeconds { get; }
+        #region Fields
+
+        private int _timeoutInSeconds;
+        private int _pollingDurationInSeconds;
+      
+        #endregion
+
+        #region Constructor
 
         public WaitHandlerResetAspect(int timeoutInSeconds, int pollingDurationInSeconds)
         {
-            TimeoutInSeconds = timeoutInSeconds;
-            PollingDurationInSeconds = pollingDurationInSeconds;
+            _timeoutInSeconds = timeoutInSeconds;
+            _pollingDurationInSeconds = pollingDurationInSeconds;       
         }
+
+        #endregion
 
         /// <summary>
         /// Called when [entry].
@@ -23,14 +29,11 @@ namespace FluentWait.Aspects
         /// <param name="args">The arguments.</param>
         public override void OnEntry(MethodExecutionArgs args)
         {
-            dynamic instance = args.Instance;
-
-            if (instance.waitHandler != null)
+            if (args.Instance is IScriptHandler instance)
             {
-                instance.waitHandler.SetPollingInterval(TimeSpan.FromSeconds(PollingDurationInSeconds));
-                instance.waitHandler.SetTimeout(TimeSpan.FromSeconds(TimeoutInSeconds));
-            }      
-
+                instance.waitHandler.SetPollingInterval(TimeSpan.FromSeconds(_pollingDurationInSeconds));
+                instance.waitHandler.SetTimeout(TimeSpan.FromSeconds(_timeoutInSeconds));
+            }
         }
 
         /// <summary>
@@ -39,12 +42,11 @@ namespace FluentWait.Aspects
         /// <param name="args">The arguments.</param>
         public override void OnExit(MethodExecutionArgs args)
         {
-            dynamic instance = args.Instance;
-            if (instance.waitHandler != null)
+            if (args.Instance is IScriptHandler instance)
             {
                 instance.waitHandler.SetPollingInterval(TimeSpan.FromSeconds(1));
                 instance.waitHandler.SetTimeout(TimeSpan.FromSeconds(60));
-            }       
+            }    
         }
 
         /// <summary>
