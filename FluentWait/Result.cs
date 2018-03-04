@@ -32,13 +32,8 @@ namespace FluentWait
 
             var result = _wait.Until(() =>
              {
-                 condition = execute(Value);
-                 var cast = condition as ICollection;
-                 if (cast == null)
-                 {
-                     throw new InvalidCastException($"Unable to cast result to {nameof(ICollection)}");
-                 }
-                 return cast.Count > 0;
+                 condition = execute(Value);      
+                 return condition.Count > 0;
              });
 
             if (!result)
@@ -59,13 +54,8 @@ namespace FluentWait
         {
             _wait.Until(() =>
              {
-                 var condition = execute(Value);
-                 var cast = condition as ICollection;
-                 if (cast == null)
-                 {
-                     throw new InvalidCastException($"Unable to cast result to {nameof(ICollection)}");
-                 }
-                 return cast.Count > 0;
+                 var condition = execute(Value);                       
+                 return condition.Count > 0;
              }).ThrowExceptionOnFailed("Collection is Empty, expected otherwise");
 
             return new Result<TResult>(_wait) { Value = returnValue(Value) };
