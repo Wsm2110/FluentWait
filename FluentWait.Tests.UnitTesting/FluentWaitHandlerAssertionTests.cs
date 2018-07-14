@@ -93,6 +93,22 @@ namespace FluentWait.Tests.UnitTesting
             Assert.IsTrue(result.Value);
         }
 
+        [TestMethod]
+        [Aspects.WaitHandlerResetAspect(2, 1)]
+        public void AssertCollectionExpression()
+        {
+            IWaitBuilder builder = new WaitBuilder(waitHandler);
+
+            var testClass = new TestClassViewModel();
+
+            testClass.TestCollection.Add(true);
+
+            var result = builder.IsNotNull(() => testClass)
+                .IsAny(vm => vm.TestCollection)
+                .IsEqual(collection => collection.Count == 1);
+
+            Assert.IsTrue(result.Value);
+        }
 
     }
 }

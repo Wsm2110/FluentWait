@@ -17,7 +17,7 @@ namespace FluentWait
         /// <summary>
         /// The wait handler
         /// </summary>
-        private IWaitHandler _waitHandler;
+        private readonly IWaitHandler _waitHandler;
 
         #endregion
 
@@ -57,7 +57,7 @@ namespace FluentWait
         /// <exception cref="Exception">Throw something exception...</exception>
         public IResult<TResult> IsNotNull<TResult>(Func<TResult> execute) where TResult : class
         {
-            var result = _waitHandler.Until(() => execute());
+            var result = _waitHandler.Until(execute);
             if (result != null)
             {
                 return new Result<TResult>(_waitHandler) { Value = result };
@@ -73,7 +73,7 @@ namespace FluentWait
         /// <returns></returns>   
         public IResult<bool> IsTrue(Func<bool> execute)
         {
-            var result = _waitHandler.Until(() => execute());
+            var result = _waitHandler.Until(execute);
 
             if (result != null)
             {
